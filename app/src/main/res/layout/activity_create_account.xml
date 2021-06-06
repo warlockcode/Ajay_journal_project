@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/gradient_bg"
+    android:layout_height="match_parent"
+    tools:context=".CreateAccountActivity">
+    <ProgressBar
+        android:id="@+id/create_acct_Progress"
+        style="?android:attr/progressBarStyle"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/acct_login_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/username_account"
+            android:hint="@string/username_hint"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:paddingBottom="16dp"
+            />
+        <AutoCompleteTextView
+            android:id="@+id/email_account"
+            android:hint="@string/email_hint"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="16dp"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/password_account"
+            android:hint="@string/password_hint"
+            android:layout_marginTop="16dp"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/create_acct_button"
+            android:textColor="@color/colorAccent"
+            android:background="@android:color/transparent"
+            android:text="@string/create_text"
+
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "229984759785",
+    "project_id": "ajay-journal-project",
+    "storage_bucket": "ajay-journal-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229984759785:android:7d134de0fd6c420231a578",
+        "android_client_info": {
+          "package_name": "com.send_app.ajay_journal_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "229984759785-pfv3t8dvfv1agn98cb645ilr0fnumsd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMQQc-cJlfYVs7A2Kig7EuUlUZO6drMd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "229984759785-pfv3t8dvfv1agn98cb645ilr0fnumsd5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

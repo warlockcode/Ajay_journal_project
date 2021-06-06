@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+            android:id="@+id/journal_list_botton"
+            android:contentDescription="@string/Acoount_hint"
+            android:icon="@drawable/outline_account_circle_black_20"
+            app:showAsAction="always"
+            android:title="@string/home_activityhint">
+        </item>
+
+        <item
+            android:id="@+id/follow_button"
+            android:icon="@drawable/outline_follow_the_signs_black_20"
+            app:showAsAction="always"
+            android:contentDescription="@string/follow_button_hint"
+            android:title="follow button">
+        </item>
+</menu>

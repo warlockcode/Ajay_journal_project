@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:menu="@menu/menu_postadd"
+        android:background="@drawable/gradient_bg"
+        tools:context=".CommentActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_comment"
+        android:layout_width="match_parent"
+        android:layout_height="610dp"
+
+        android:padding="10dp" />
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/comment_editText"
+        android:layout_width="360dp"
+        android:layout_height="110dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/roboto_slab_bold"
+        android:hint="@string/add_a_comment_hint"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/add_comment_button"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:src="@drawable/outline_send_black_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/comment_editText"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>

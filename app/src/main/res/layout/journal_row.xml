@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+   android:layout_marginTop="5dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginLeft="1dp"
+    app:cardCornerRadius="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:background="@color/redBg"
+        android:alpha="0.8"
+        android:elevation="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/jouranl_row_profile"
+            android:layout_width="30dp"
+            android:layout_height="33dp"
+            android:src="@drawable/outline_account_circle_black_20">
+        </de.hdodenhof.circleimageview.CircleImageView>
+        <TextView
+            android:id="@+id/journalrow_Username"
+            android:textColor="@android:color/black"
+            android:text="Gina"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            android:gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageButton
+            android:id="@+id/update_journal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/outline_update_black_36" />
+
+        <ImageButton
+            android:id="@+id/delete_journal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_delete" />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/journal_image_List"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/image_three" />
+
+        <TextView
+            android:id="@+id/journal_title_list"
+            android:padding="10dp"
+            android:text="Title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/journal_thought_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="10dp"
+            android:text="Thoughts.."
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/jouranl_timestamp_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Date Created" />
+        <ImageSwitcher
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+        </ImageSwitcher>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

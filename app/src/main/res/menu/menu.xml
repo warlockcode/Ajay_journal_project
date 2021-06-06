@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item android:id="@+id/home_activity_icon"
+      android:contentDescription="@string/home_activityhint"
+      android:icon="@drawable/outline_home_black_20"
+      app:showAsAction="always"
+      android:title="@string/home_activityhint"
+    >
+
+</item>
+ <item
+     android:contentDescription="@string/menu_title"
+     android:id="@+id/action_add"
+    android:icon="@android:drawable/ic_menu_add"
+    android:title="@string/menu_title"
+    app:showAsAction="always"
+    >
+</item>
+ <item android:id="@+id/action_signout"
+        android:title="@string/sign_outhTitle"
+        app:showAsAction="never"/>
+ <item
+     android:id="@+id/update_profileandusername"
+     android:title="Update Account"
+     app:showAsAction="never"
+     >
+
+ </item>
+
+</menu>

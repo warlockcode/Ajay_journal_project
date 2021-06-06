@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:background="@color/redBg"
+        android:elevation="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/update_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_outline"
+            android:hint="@string/update_title_hint"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            android:textSize="18dp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/update_thoughts"
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:background="@drawable/input_outline"
+            android:hint="@string/update_thought_hint"
+            android:inputType="textMultiLine"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            android:textSize="18dp">
+
+        </EditText>
+        <Button
+        android:id="@+id/update_button"
+            android:layout_marginTop="15dp"
+        android:text="@string/update__button_hint"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        </Button>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

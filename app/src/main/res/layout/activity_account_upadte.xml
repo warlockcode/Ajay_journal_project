@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="8dp"
+    android:layout_height="350dp"
+    tools:menu="@menu/menu_postadd"
+    tools:context=".AccountUpadteActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/update_profilepic"
+        android:layout_width="132dp"
+        android:layout_height="111dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="70dp"
+        android:src="@drawable/outline_account_circle_black_36">
+
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <EditText
+        android:id="@+id/update_username"
+        android:layout_width="239dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto_slab_bold"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:text="User_name"
+       >
+
+    </EditText>
+
+    <Button
+        android:text="UPDATE"
+        android:id="@+id/save_update_account_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:gravity="center">
+
+    </Button>
+
+</androidx.cardview.widget.CardView>
