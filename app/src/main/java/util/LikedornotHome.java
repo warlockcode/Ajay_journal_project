@@ -25,17 +25,18 @@ import java.util.List;
 import java.util.Objects;
 
 import Ui.HomeRecyclerAdapter;
+import Ui.JournalRecyclerAdapter;
 import kotlin.jvm.Synchronized;
 
-public class Likedornot extends Thread{
+public class LikedornotHome {
     public boolean result= true;
-    public Likedornot(){};
+    public LikedornotHome(){};
     HomeRecyclerAdapter.ViewHolder holder;
     Journal journal = new Journal();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference collectionReferenceLike = db.collection("Like");
     CollectionReference collectionReferenceJournal = db.collection("Journal");
-    public Likedornot(Journal journal, HomeRecyclerAdapter.ViewHolder holder)
+    public LikedornotHome(Journal journal, HomeRecyclerAdapter.ViewHolder holder)
     {
             this.journal = journal;
             this.holder = holder;
@@ -69,6 +70,7 @@ public class Likedornot extends Thread{
                                                 int likes = Integer.parseInt(Objects.requireNonNull(snapshot.getString("likes")));
                                                 likes -= 1;
                                                 documentReference1.update("likes", String.valueOf(likes));
+
                                                 collectionReferenceLike.whereEqualTo("imageurl", journal.getImageurl()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                     @Override
                                                     public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
@@ -82,6 +84,7 @@ public class Likedornot extends Thread{
                                                             if (!likesList.isEmpty()) {
                                                                 likesList.sort(Likes.likesComparator);
                                                                 Likes recent_like = likesList.get(0);
+                                                                documentReference1.update("recentLiked",recent_like);
                                                                 if (likesList.size() == 1) {
                                                                     holder.likes_textView.setText(String.format("Liked By %s", recent_like.getLikedByusername()));
                                                                 } else {
@@ -92,6 +95,7 @@ public class Likedornot extends Thread{
                                                             }
                                                             else
                                                             {
+                                                                documentReference1.update("recentLiked"," ");
                                                                 holder.likes_textView.setText("Liked By 0");
                                                             }
                                                         }
@@ -114,81 +118,7 @@ public class Likedornot extends Thread{
                     else
                     {
                         Log.d("test add like", "onSuccess: getting here ");
-
-                        Likes likes = new Likes();
-                        likes.setImageurl(journal.getImageurl());
-                        likes.setLikedByuserId(JournalApi.getInstance().getUserId());
-                        likes.setLikedByusername(JournalApi.getInstance().getUsername());
-                        likes.setTimeago(Timestamp.now());
-//                                                Map<String, String> likes = new HashMap<>();
-//                                                likes.put("imageurl", journal.getImageurl());
-//                                                likes.put("LikedByuserId", JournalApi.getInstance().getUserId());
-//                                                likes.put("LikedByusername", JournalApi.getInstance().getUsername());
-
-                        collectionReferenceLike.add(likes).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                holder.like_button.setBackgroundColor(Color.rgb(255, 0, 0));
-                                collectionReferenceJournal.whereEqualTo("imageurl", journal.getImageurl()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull @NotNull Task<QuerySnapshot> taskJournal) {
-
-                                        if (taskJournal.isSuccessful()) {
-                                            for (QueryDocumentSnapshot snapshot : taskJournal.getResult()) {
-                                                DocumentReference documentReference1 = db.collection("Journal").document(snapshot.getId());
-                                                int likes = Integer.parseInt(Objects.requireNonNull(snapshot.getString("likes")));
-                                                likes += 1;
-                                                String likesS = String.valueOf(likes);
-                                                documentReference1.update("likes", likesS);
-                                                collectionReferenceLike.whereEqualTo("imageurl", journal.getImageurl()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
-                                                        List<Likes> likesList = new ArrayList<>();
-                                                        if (task.isSuccessful()) {
-                                                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                                                Likes likes = documentSnapshot.toObject(Likes.class);
-                                                                likesList.add(likes);
-
-                                                            }
-                                                            if (!likesList.isEmpty()) {
-                                                                likesList.sort(Likes.likesComparator);
-                                                                Likes recent_like = likesList.get(0);
-                                                                if (likesList.size() == 1) {
-                                                                    holder.likes_textView.setText(String.format("Liked By %s", recent_like.getLikedByusername()));
-                                                                } else {
-                                                                    holder.likes_textView.setText(String.format("Liked By %s and %s Others", recent_like.getLikedByusername(), String.valueOf(likesList.size() - 1)));
-
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                holder.likes_textView.setText("Liked By 0");
-                                                            }
-                                                        }
-                                                    }
-
-                                                });
-
-
-
-                                            }
-                                        }
-
-
-                                    }
-                                });
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull @NotNull Exception e) {
-
-                            }
-                        });
-
-
-
-
-
+                        addlike(true);
 
                     }
                 }
@@ -239,7 +169,10 @@ public class Likedornot extends Thread{
                                     int likes = Integer.parseInt(Objects.requireNonNull(snapshot.getString("likes")));
                                     likes += 1;
                                     String likesS = String.valueOf(likes);
+                                    String likedByUser = JournalApi.getInstance().getUsername();
                                     documentReference1.update("likes", likesS);
+                                    documentReference1.update("recentLiked",likedByUser);
+
                                     collectionReferenceLike.whereEqualTo("imageurl", journal.getImageurl()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {

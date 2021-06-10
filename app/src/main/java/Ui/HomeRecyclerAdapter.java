@@ -35,7 +35,7 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 import util.Journal;
 import util.JournalApi;
-import util.Likedornot;
+import util.LikedornotHome;
 import util.Likes;
 
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder> {
@@ -109,32 +109,19 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                 }
             }
         });
-
-
-        collectionReferenceLike.whereEqualTo("imageurl",journal.getImageurl()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
-                 List<Likes> likesList = new ArrayList<>();
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        Likes likes =  documentSnapshot.toObject(Likes.class);
-                        likesList.add(likes);
-
-                    }
-                    if(!likesList.isEmpty()) {
-                        likesList.sort(Likes.likesComparator);
-                        Likes recent_like = likesList.get(0);
-                        if (likesList.size() == 1) {
-                            holder.likes_textView.setText(String.format("Liked By %s", recent_like.getLikedByusername()));
-                        } else {
-                            holder.likes_textView.setText(String.format("Liked By %s and %s Others", recent_like.getLikedByusername(), String.valueOf(likesList.size() - 1)));
-
-                        }
-                    }
+        if(!journal.getRecentLiked().equals(" ")) {
+                if(Integer.parseInt(journal.getLikes()) == 1) {
+                    holder.likes_textView.setText(String.format("Liked By %s", journal.getRecentLiked()));
+                }else {
+                    holder.likes_textView.setText(String.format("Liked By %s and %s Others", journal.getRecentLiked(), journal.getLikes()));
                 }
             }
+        else
+        {
+            holder.likes_textView.setText("Liked by 0");
 
-        });
+        }
+
 
         // setup comment button
         holder.comment_button.setOnClickListener(new View.OnClickListener() {
@@ -162,43 +149,19 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         holder.like_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Likedornot likedornot =new Likedornot(journal,holder);
+                    LikedornotHome likedornotHome =new LikedornotHome(journal,holder);
 
 
                     Thread t1 = new Thread()
                     {
                         public void run()
                         {
-                            likedornot.checklikedornot();
+                            likedornotHome.checklikedornot();
 
                         }
                     };
                     t1.start();
-//                       collectionReferenceLike.whereEqualTo("imageurl", journal.getImageurl()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                                    @Override
-//                                                    public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
-//                                                        List<Likes> likesList = new ArrayList<>();
-//                                                        if (task.isSuccessful()) {
-//                                                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-//                                                                Likes likes = documentSnapshot.toObject(Likes.class);
-//                                                                likesList.add(likes);
-//
-//                                                            }
-//                                                            if (!likesList.isEmpty()) {
-//                                                                likesList.sort(Likes.likesComparator);
-//                                                                Likes recent_like = likesList.get(0);
-//                                                                if (likesList.size() == 1) {
-//                                                                    holder.likes_textView.setText(String.format("Liked By %s", recent_like.getLikedByusername()));
-//                                                                } else {
-//                                                                    holder.likes_textView.setText(String.format("Liked By %s and %s Others", recent_like.getLikedByusername(), String.valueOf(likesList.size() - 1)));
-//
-//                                                                }
-//                                                            }
-//                                                        }
-//                                                    }
-//
-//                                                });
-                Log.d("test like", "onSuccess: getting here " + String.valueOf(likedornot.getResult()));
+                Log.d("test like", "onSuccess: getting here " + String.valueOf(likedornotHome.getResult()));
 
 
             }

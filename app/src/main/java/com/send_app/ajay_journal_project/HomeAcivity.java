@@ -73,12 +73,14 @@ public class HomeAcivity extends AppCompatActivity {
 
     }
 
+    // setting menubar for home Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menuforhomeactivity,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    // setting up menu options for home activity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId())
@@ -100,6 +102,7 @@ public class HomeAcivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // getting the id's of users we are currently following
     @Override
     protected void onStart() {
         super.onStart();
@@ -121,6 +124,8 @@ public class HomeAcivity extends AppCompatActivity {
 
             }
         });
+
+        // adding journal to the homeRecyclerAdapter
 
             collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
@@ -162,6 +167,8 @@ public class HomeAcivity extends AppCompatActivity {
             });
 
     }
+
+    //checking and adding if the post is posted by the persons we are following
     private boolean checkID(DocumentSnapshot snapshot) {
         String followedID = snapshot.getString("userId");
         for( String fc : follwedIDList)
@@ -182,9 +189,5 @@ public class HomeAcivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        finish();
-    }
+
 }

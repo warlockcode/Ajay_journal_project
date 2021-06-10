@@ -15,9 +15,10 @@ public class Journal {
     private com.google.firebase.Timestamp timeAdded;
     private String username;
     private String likes;
+    private String recentLiked;
     public Journal(){}
 
-    public Journal(String title, String thoughts, String imageurl, String userId, com.google.firebase.Timestamp timeAdded, String username,String likes) {
+    public Journal(String title, String thoughts, String imageurl, String userId, com.google.firebase.Timestamp timeAdded, String username,String likes,String recentLiked) {
         this.title = title;
         this.thoughts = thoughts;
         this.imageurl = imageurl;
@@ -25,6 +26,7 @@ public class Journal {
         this.timeAdded = timeAdded;
         this.username = username;
         this.likes = likes;
+        this.recentLiked = recentLiked;
     }
     public static Comparator<Journal> journaltimeSort =new Comparator<Journal>() {
         @Override
@@ -89,4 +91,11 @@ public class Journal {
         this.likes = likes;
     }
 
+    public String getRecentLiked() {
+        return recentLiked;
+    }
+
+    public void setRecentLiked(String recentLiked) {
+        this.recentLiked = recentLiked;
+    }
 }

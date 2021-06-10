@@ -67,7 +67,7 @@ public class LikesActivity extends AppCompatActivity {
                 {
                     startActivity(new Intent(LikesActivity.this, HomeAcivity.class));
                 }
-                if(activity.toLowerCase().equals("journalList".toLowerCase())) {
+                if(activity.toLowerCase().equals("journal".toLowerCase())) {
 
                     startActivity(new Intent(LikesActivity.this, JournalListActivity.class));
                 }

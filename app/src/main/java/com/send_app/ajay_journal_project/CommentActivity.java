@@ -105,9 +105,14 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         switch(item.getItemId())
         {
             case R.id.go_back:
-
+                if(context.toLowerCase().equals("home".toLowerCase()))
+                {
                     startActivity(new Intent(CommentActivity.this, HomeAcivity.class));
+                }
+                if(context.toLowerCase().equals("journal".toLowerCase())) {
 
+                    startActivity(new Intent(CommentActivity.this, JournalListActivity.class));
+                }
                 break;
         }
 

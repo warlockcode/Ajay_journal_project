@@ -173,6 +173,7 @@ public class PostJournalActivity extends AppCompatActivity implements View.OnCli
                             journal.setUsername(currentUserName);
                             journal.setUserId(currentUserId);
                             journal.setLikes("0");
+                            journal.setRecentLiked(" ");
 
                             //invoke collection ref
 

@@ -2,8 +2,9 @@ package Ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.send_app.ajay_journal_project.CommentActivity;
 import com.send_app.ajay_journal_project.JournalListActivity;
+import com.send_app.ajay_journal_project.LikesActivity;
 import com.send_app.ajay_journal_project.R;
 import com.squareup.picasso.Picasso;
 
@@ -35,11 +38,13 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import util.Journal;
 import util.JournalApi;
-
+import util.LikedorNotJournal;
+import util.LikedornotHome;
 
 
 public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecyclerAdapter.ViewHolder>
@@ -52,6 +57,7 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference collectionReference = db.collection("Journal");
     CollectionReference collectionReferenceprofile = db.collection("Profile_Picture");
+    CollectionReference collectionReferenceLike = db.collection("Like");
 
     public JournalRecyclerAdapter(){};
     public JournalRecyclerAdapter(Context context, List<Journal> journalList) {
@@ -168,6 +174,83 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
 //
             }
         });
+        collectionReferenceLike.whereEqualTo("imageurl",journal.getImageurl()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        if (Objects.requireNonNull(documentSnapshot.getString("likedByuserId")).toLowerCase().equals(JournalApi.getInstance().getUserId().toLowerCase())) {
+                            holder.like_button.setBackgroundColor(Color.rgb(255, 0, 0));
+                        }
+
+                    }
+                }
+            }
+        });
+        if(!journal.getRecentLiked().equals(" ")) {
+            if(Integer.parseInt(journal.getLikes()) == 1) {
+                holder.likes_textView.setText(String.format("Liked By %s", journal.getRecentLiked()));
+            }else {
+                holder.likes_textView.setText(String.format("Liked By %s and %s Others", journal.getRecentLiked(), journal.getLikes()));
+            }
+        }
+        else
+        {
+            holder.likes_textView.setText("Liked by 0");
+
+        }
+
+        // setup comment button
+        holder.comment_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, CommentActivity.class);
+                intent.putExtra("context","journal");
+                intent.putExtra("imageurl",journal.getImageurl());
+                context.startActivity(intent);
+
+            }
+        });
+        // setup LikeList
+        holder.likes_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LikesActivity.class);
+                intent.putExtra("context","journal");
+                intent.putExtra("imageurl",journal.getImageurl());
+                context.startActivity(intent);
+            }
+        });
+
+        // setting up the like button
+        holder.like_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LikedorNotJournal likedorNotJournal =new LikedorNotJournal(journal,holder);
+
+
+                Thread t1 = new Thread()
+                {
+                    public void run()
+                    {
+                        likedorNotJournal.checklikedornot();
+
+                    }
+                };
+                t1.start();
+                Log.d("test like", "onSuccess: getting here " + String.valueOf(likedorNotJournal.getResult()));
+
+
+            }
+
+
+
+
+
+      });
+
+
     }
 
     @Override
@@ -176,9 +259,10 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title,thoughts,dateAdded,name;
+        public TextView title,thoughts,dateAdded,name,likes_textView;
         public ImageView imageView;
         public ImageButton deleteButton,updateButton;
+        public ImageView like_button,comment_button;
         public CircleImageView profile;
         String userId;
         String username;
@@ -193,6 +277,9 @@ public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecycler
             profile = itemView.findViewById(R.id.jouranl_row_profile);
            updateButton = itemView.findViewById(R.id.update_journal);
            deleteButton =itemView.findViewById(R.id.delete_journal);
+           like_button = itemView.findViewById(R.id.like_button_journal);
+           comment_button = itemView.findViewById(R.id.comment_journal);
+           likes_textView = itemView.findViewById(R.id.likedList_journal);
         }
     }
 }

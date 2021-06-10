@@ -36,7 +36,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
@@ -50,19 +49,21 @@ import util.JournalApi;
 public class AccountUpadteActivity extends AppCompatActivity implements View.OnClickListener {
     private CircleImageView user_image;
     private EditText username ;
-    private Button saveButton;
-    public static final int GALLERY_CODE = 1;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();;
+    private Button saveButton ;
+    public static final int GALLERY_CODE = 1 ;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser ;
     private CollectionReference collectionReferenceUser = db.collection("Users");
     private CollectionReference collectionReferenceProfilePicture = db.collection("Profile_Picture");
     private Uri imageuri ;
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_upadte);
+
         user_image = findViewById(R.id.update_profilepic);
         username = findViewById(R.id.update_username);
         saveButton=findViewById(R.id.save_update_account_profile);
@@ -72,8 +73,8 @@ public class AccountUpadteActivity extends AppCompatActivity implements View.OnC
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_postadd,menu);
@@ -143,6 +144,8 @@ public class AccountUpadteActivity extends AppCompatActivity implements View.OnC
         }
 
     }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -157,6 +160,7 @@ public class AccountUpadteActivity extends AppCompatActivity implements View.OnC
         }
 
     }
+
     private void update_profile() {
         String usernameString = username.getText().toString().trim();
 
@@ -216,4 +220,5 @@ public class AccountUpadteActivity extends AppCompatActivity implements View.OnC
         }
 
     }
+
 }
