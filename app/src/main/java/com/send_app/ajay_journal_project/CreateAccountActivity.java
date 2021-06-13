@@ -108,10 +108,33 @@ public class CreateAccountActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        // we take  user to add journal activity
 
-                        currentUser = firebaseAuth.getCurrentUser();
-                        assert currentUser != null;
+                       sendVerificationEmail(username);
+
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull @NotNull Exception e) {
+
+                }
+            });
+        }
+        else {
+
+        }
+
+    }
+
+    private void sendVerificationEmail(String username) {
+        currentUser = firebaseAuth.getCurrentUser();
+        assert currentUser != null;
+             currentUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull @NotNull Task<Void> task) {
+                    if(task.isSuccessful())
+                    {
+                        Toast.makeText(CreateAccountActivity.this, "check your email for verification", Toast.LENGTH_LONG).show();
                         String currentUserId = currentUser.getUid();
                         // image
                         Map<String, String> profileupadate = new HashMap<>();
@@ -162,9 +185,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                                             JournalApi journalApi = JournalApi.getInstance();
                                             journalApi.setUserId(currentUserId);
                                             journalApi.setUsername(name);
-                                            Intent intent = new Intent(CreateAccountActivity.this,PostJournalActivity.class);
-                                            intent.putExtra("username",name);
-                                            intent.putExtra("userId",currentUserId);
+                                            Intent intent = new Intent(CreateAccountActivity.this,LoginActivity.class);
+                                            FirebaseAuth.getInstance().signOut();
                                             startActivity(intent);
 
                                         }
@@ -184,22 +206,21 @@ public class CreateAccountActivity extends AppCompatActivity {
                             }
                         });
 
-
                     }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull @NotNull Exception e) {
+                    else
+                        {
+                            Toast.makeText(CreateAccountActivity.this, "E-Mail not verified enter a corret E-mail", Toast.LENGTH_LONG).show();
+                            firebaseAuth.getCurrentUser().delete();
+                            overridePendingTransition(0, 0);
+                            finish();
+                            overridePendingTransition(0, 0);
+                            startActivity(new Intent(CreateAccountActivity.this,CreateAccountActivity.class));
 
+                     }
                 }
             });
-        }
-        else {
-
-        }
 
     }
-
 
 
     @Override

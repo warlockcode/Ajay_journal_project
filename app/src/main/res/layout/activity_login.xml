@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:padding="16dp"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_bg"
@@ -60,6 +61,18 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/login_forget_password"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="forget Password"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:gravity="center">
+
+        </Button>
 
     </LinearLayout>
 

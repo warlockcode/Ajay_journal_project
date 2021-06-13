@@ -93,7 +93,6 @@ public class HomeAcivity extends AppCompatActivity {
             case R.id.follow_button:
                 //go to the followActivity
                 startActivity(new Intent(HomeAcivity.this,FollowActivity.class));
-                finish();
                 break;
 
         }

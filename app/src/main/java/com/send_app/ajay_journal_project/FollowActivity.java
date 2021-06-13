@@ -86,6 +86,7 @@ public class FollowActivity extends AppCompatActivity {
         {
             case R.id.go_back:
                 startActivity(new Intent(FollowActivity.this,HomeAcivity.class));
+                finish();
                 break;
         }
 

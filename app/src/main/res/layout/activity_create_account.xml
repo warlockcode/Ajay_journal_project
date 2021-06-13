@@ -4,11 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:gravity="center"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@drawable/gradient_bg"
     android:layout_height="match_parent"
     tools:context=".CreateAccountActivity">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/create_account_profile"
+        android:layout_width="wrap_content"
+        android:src="@drawable/outline_account_circle_black_36"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+    </de.hdodenhof.circleimageview.CircleImageView>
     <ProgressBar
         android:id="@+id/create_acct_Progress"
         style="?android:attr/progressBarStyle"
@@ -51,7 +60,6 @@
             android:textColor="@color/colorAccent"
             android:background="@android:color/transparent"
             android:text="@string/create_text"
-
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

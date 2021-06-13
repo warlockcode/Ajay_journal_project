@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,7 +36,7 @@ import util.Journal;
 import util.JournalApi;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button loginButton;
+    private Button loginButton,forget_Button;
     private Button createAccountButton;
     private AutoCompleteTextView emailAddress;
     private ProgressBar progressBar;
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth  firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser currentUser;
+
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -60,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password_login);
         progressBar = findViewById(R.id.loginProgress);
         firebaseAuth = FirebaseAuth.getInstance();
+        forget_Button = findViewById(R.id.login_forget_password);
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,29 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
+        forget_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                String email = emailAddress.getText().toString().trim();
+                if(!TextUtils.isEmpty(email)) {
+                    auth.sendPasswordResetEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(LoginActivity.this, "check your email account for password reset link", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                }
+                {
+                    Toast.makeText(LoginActivity.this, "enter your email", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 }
 
@@ -85,32 +111,19 @@ public class LoginActivity extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                         FirebaseUser user = firebaseAuth.getCurrentUser();
-                         assert user != null;
-                         String currentUserId = user.getUid();
+                    if(task.isSuccessful()) {
+                        checkIfEmailVerified();
 
-                         collectionReference.whereEqualTo("userID",currentUserId).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                             @Override
-                             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                     if(error !=null)
-                                     {
-                                     }
-                                 assert value != null;
-                                 if(!value.isEmpty())
-                                 {
-                                     progressBar.setVisibility(View.INVISIBLE);
-                                     for(QueryDocumentSnapshot snapshot : value) {
-                                         JournalApi journalApi = JournalApi.getInstance();
-                                         journalApi.setUsername(snapshot.getString("username"));
-                                         journalApi.setUserId(snapshot.getString("userID"));
+                    }
 
-                                         // go to ListActivity
-                                         startActivity(new Intent(LoginActivity.this,JournalListActivity.class));
-                                         finish();
-                                     }
-                                 }
-                             }
-                         });
+                    }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull @NotNull Exception e) {
+                        Toast.makeText(LoginActivity.this, "Please enter correct email and password", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+
+
                 }
             });
         }
@@ -119,6 +132,52 @@ public class LoginActivity extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(this, "Please enter correct email and password", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void checkIfEmailVerified() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        assert user != null;
+        if (user.isEmailVerified())
+        {
+            assert user != null;
+            String currentUserId = user.getUid();
+
+            collectionReference.whereEqualTo("userID", currentUserId).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error != null) {
+                    }
+                    assert value != null;
+                    if (!value.isEmpty()) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        for (QueryDocumentSnapshot snapshot : value) {
+                            JournalApi journalApi = JournalApi.getInstance();
+                            journalApi.setUsername(snapshot.getString("username"));
+                            journalApi.setUserId(snapshot.getString("userID"));
+                            Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_LONG).show();
+                            // go to ListActivity
+                            startActivity(new Intent(LoginActivity.this, JournalListActivity.class));
+                            finish();
+                        }
+                    }
+                }
+            });
+
+
+        }
+        else
+        {
+            // email is not verified, so just prompt the message to the user and restart this activity.
+            // NOTE: don't forget to log out the user.
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(this, "somthing wrong ", Toast.LENGTH_SHORT).show();
+            //restart this activity
+
+        }
+
+
 
     }
 

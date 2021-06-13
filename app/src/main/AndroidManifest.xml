@@ -18,13 +18,18 @@
         <activity android:name=".LikesActivity" />
         <activity android:name=".FollowingUserActivity" />
         <activity android:name=".FollwedUsersActivity" />
-        <activity android:name=".AccountUpadteActivity" />
+        <activity android:name=".AccountUpadteActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".FollowActivity" />
         <activity android:name=".HomeAcivity" />
-        <activity android:name=".JournalListActivity" />
-        <activity android:name=".PostJournalActivity" />
-        <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".JournalListActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".PostJournalActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".CreateAccountActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

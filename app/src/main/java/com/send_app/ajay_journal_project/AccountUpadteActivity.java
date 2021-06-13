@@ -32,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -106,7 +107,7 @@ public class AccountUpadteActivity extends AppCompatActivity implements View.OnC
 
                             String imgUrl = snapshot.getString("imageurl");
                             if (!imgUrl.equals("")) {
-                                Picasso.get().load(imgUrl).placeholder(R.drawable.image_one).fit().into(user_image);
+                                Picasso.get().load(imgUrl).placeholder(R.drawable.outline_account_circle_black_36).fit().into(user_image);
                             }
                         }
                     } else {
@@ -170,7 +171,6 @@ public class AccountUpadteActivity extends AppCompatActivity implements View.OnC
         if(!TextUtils.isEmpty(usernameString) && imageuri!=null)
         {
             StorageReference filepath = storageReference.child("journal_images").child("my_image"+ Timestamp.now().getSeconds());
-
             filepath.putFile(imageuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
