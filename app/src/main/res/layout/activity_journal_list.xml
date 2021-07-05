@@ -4,103 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:menu="@menu/menu"
     android:background="@drawable/gradient_bg"
-    tools:context=".JournalListActivity">
+    tools:context=".JournalListActivity"
+    tools:menu="@menu/menu">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="128dp"
+        android:layout_width="103dp"
+        android:layout_height="86dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.004">
+        app:layout_constraintVertical_bias="0.003">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_view_journalList"
-            android:layout_width="104dp"
-            android:layout_height="85dp"
+            android:layout_width="101dp"
+            android:layout_height="86dp"
             android:src="@drawable/outline_account_circle_black_36"
             app:border_color="@color/redBg"
             app:border_width="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="0dp">
 
         </de.hdodenhof.circleimageview.CircleImageView>
-
-        <TextView
-            android:id="@+id/username_in_journalist"
-            android:layout_width="191dp"
-            android:layout_height="35dp"
-            android:autoSizeTextType="uniform"
-            android:fontFamily="@font/roboto_slab_bold"
-            android:paddingLeft="10dp"
-            android:text="name"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_view_journalList"
-            app:layout_constraintVertical_bias="0.0">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/following_view_j"
-            android:layout_width="135dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="24dp"
-            android:autoSizeTextType="uniform"
-            android:fontFamily="@font/roboto_slab_bold"
-            android:text="Following\n0"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.225"
-            tools:ignore="RtlCompat">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/followed_view_j"
-            android:layout_width="135dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"
-            android:autoSizeTextType="uniform"
-            android:fontFamily="@font/roboto_slab_bold"
-            android:text="Followed\n0"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/following_view_j"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.225"
-            tools:ignore="RtlCompat">
-
-        </TextView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="638dp"
+        android:layout_width="408dp"
+        android:layout_height="542dp"
+        android:layout_marginBottom="40dp"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintTop_toBottomOf="@+id/username_in_journalist"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/list_no_thoughts"
@@ -114,6 +59,64 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.863" />
+
+    <TextView
+        android:id="@+id/following_view_j"
+        android:layout_width="135dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center_vertical"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto_slab_bold"
+        android:text="Following\n0"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.36"
+        app:layout_constraintStart_toEndOf="@+id/followed_view_j"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.098"
+        tools:ignore="RtlCompat">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/followed_view_j"
+        android:layout_width="135dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="116dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto_slab_bold"
+        android:text="Followed\n0"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.098"
+        tools:ignore="RtlCompat">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/username_in_journalist"
+        android:layout_width="191dp"
+        android:layout_height="35dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto_slab_bold"
+        android:paddingLeft="10dp"
+        android:text="name"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+    </TextView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

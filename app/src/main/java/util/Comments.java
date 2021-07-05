@@ -12,6 +12,7 @@ class Comments {
     String commentedbyusername;
     String comment;
     Timestamp timeago;
+    // without parameter
     public Comments(){};
 
     public Comments(String imageurl, String commentedbyUserId, String commentedbyusername, String comment, Timestamp timeago) {

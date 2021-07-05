@@ -273,7 +273,7 @@ public class JournalListActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.following_view_j:
                 startActivity(new Intent(JournalListActivity.this,FollowingUserActivity.class));
-                finish();;
+                finish();
                 break;
 
         }

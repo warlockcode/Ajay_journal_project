@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         assert user != null;
         if (user.isEmailVerified())
         {
-            assert user != null;
+
             String currentUserId = user.getUid();
 
             collectionReference.whereEqualTo("userID", currentUserId).addSnapshotListener(new EventListener<QuerySnapshot>() {
